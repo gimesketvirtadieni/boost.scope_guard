@@ -11,11 +11,17 @@
     #error Boost.ScopeGuard requires C++17 or later.
 #endif
 
+#ifndef SCOPE_GUARD_STANDALONE
 #include <boost/scope_guard/detail/base.hpp>
 #include <boost/scope_guard/detail/unwrap_decay.hpp>
 #include <boost/scope_guard/detail/unique_name.hpp>
 
 #include <boost/config.hpp>
+#else
+#include <scope_guard/detail/base.hpp>
+#include <scope_guard/detail/unwrap_decay.hpp>
+#include <scope_guard/detail/unique_name.hpp>
+#endif
 
 #include <type_traits>
 #include <exception>

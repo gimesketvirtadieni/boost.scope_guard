@@ -7,7 +7,9 @@
 #ifndef BOOST_SCOPE_GUARD_DETAIL_UNIQUE_NAME_HPP
 #define BOOST_SCOPE_GUARD_DETAIL_UNIQUE_NAME_HPP
 
+#ifndef SCOPE_GUARD_STANDALONE
 #include <boost/config.hpp>
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 

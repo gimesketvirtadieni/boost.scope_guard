@@ -7,7 +7,11 @@
 #ifndef BOOST_SCOPE_GUARD_DETAIL_APPLY_HPP
 #define BOOST_SCOPE_GUARD_DETAIL_APPLY_HPP
 
+#ifndef SCOPE_GUARD_STANDALONE
 #include <boost/scope_guard/detail/fn_alias.hpp>
+#else
+#include <scope_guard/detail/fn_alias.hpp>
+#endif
 
 #include <cstddef>
 #include <utility>

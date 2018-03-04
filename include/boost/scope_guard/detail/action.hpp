@@ -7,8 +7,13 @@
 #ifndef BOOST_SCOPE_GUARD_DETAIL_ACTION_HPP
 #define BOOST_SCOPE_GUARD_DETAIL_ACTION_HPP
 
+#ifndef SCOPE_GUARD_STANDALONE
 #include <boost/scope_guard/detail/fn_alias.hpp>
 #include <boost/scope_guard/detail/apply.hpp>
+#else
+#include <scope_guard/detail/fn_alias.hpp>
+#include <scope_guard/detail/apply.hpp>
+#endif
 
 #include <tuple>
 #include <type_traits>
