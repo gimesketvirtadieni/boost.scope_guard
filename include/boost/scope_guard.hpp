@@ -63,7 +63,11 @@ public:
     noexcept(std::is_nothrow_invocable_v<typename base_type::action_type>)
     {
         int out = std::uncaught_exceptions();
+#ifndef SCOPE_GUARD_STANDALONE
         if (BOOST_UNLIKELY(out > in)) { this->action_(); }
+#else
+        if (out > in) { this->action_(); }
+#endif
     }
 };
 
@@ -87,7 +91,11 @@ public:
     noexcept(std::is_nothrow_invocable_v<typename base_type::action_type>)
     {
         int out = std::uncaught_exceptions();
+#ifndef SCOPE_GUARD_STANDALONE
         if (BOOST_LIKELY(out == in)) { this->action_(); }
+#else
+        if (out == in) { this->action_(); }
+#endif
     }
 };
 
