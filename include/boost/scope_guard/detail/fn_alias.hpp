@@ -9,10 +9,17 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
+#ifndef SCOPE_GUARD_STANDALONE
 #define BOOST_DETAIL_SCOPE_GUARD_FN_ALIAS(...) \
     noexcept(noexcept(__VA_ARGS__)) \
     -> decltype(__VA_ARGS__) \
     { return __VA_ARGS__; }
+#else
+#define DETAIL_SCOPE_GUARD_FN_ALIAS(...) \
+    noexcept(noexcept(__VA_ARGS__)) \
+    -> decltype(__VA_ARGS__) \
+    { return __VA_ARGS__; }
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 

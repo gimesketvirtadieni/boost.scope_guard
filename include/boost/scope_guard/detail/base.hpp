@@ -16,7 +16,11 @@
 #include <type_traits>
 #include <utility>
 
+#ifndef SCOPE_GUARD_STANDALONE
 namespace boost::detail::scope_guard {
+#else
+namespace util::detail::scope_guard {
+#endif
 ///////////////////////////////////////////////////////////////////////////////
 
 template <typename... Params>

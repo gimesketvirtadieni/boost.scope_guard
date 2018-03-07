@@ -19,21 +19,37 @@
 #include <tuple>
 #include <type_traits>
 
+#ifndef SCOPE_GUARD_STANDALONE
 namespace boost::detail::scope_guard {
+#else
+namespace util::detail::scope_guard {
+#endif
 ///////////////////////////////////////////////////////////////////////////////
 
 template <std::size_t... I, typename Fn, typename Args>
 auto apply_impl(std::index_sequence<I...>, Fn&& fn, Args&& args)
+#ifndef SCOPE_GUARD_STANDALONE
 BOOST_DETAIL_SCOPE_GUARD_FN_ALIAS(std::invoke(
     std::forward<Fn>(fn), std::get<I>(std::forward<Args>(args))...))
+#else
+DETAIL_SCOPE_GUARD_FN_ALIAS(std::invoke(
+	std::forward<Fn>(fn), std::get<I>(std::forward<Args>(args))...))
+#endif
  
 // Like `std::apply` but SFINAE friendly and propagates `noexcept`ness.
 template <class Fn, typename Args>
 auto apply(Fn&& fn, Args&& args)
+#ifndef SCOPE_GUARD_STANDALONE
 BOOST_DETAIL_SCOPE_GUARD_FN_ALIAS(apply_impl(
     std::make_index_sequence<
         std::tuple_size_v<std::remove_reference_t<Args>>>{},
     std::forward<Fn>(fn), std::forward<Args>(args)))
+#else
+DETAIL_SCOPE_GUARD_FN_ALIAS(apply_impl(
+	std::make_index_sequence<
+		std::tuple_size_v<std::remove_reference_t<Args>>>{},
+	std::forward<Fn>(fn), std::forward<Args>(args)))
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 } // boost::detail::scope_guard

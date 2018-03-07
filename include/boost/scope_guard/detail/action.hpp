@@ -19,7 +19,11 @@
 #include <type_traits>
 #include <utility>
 
+#ifndef SCOPE_GUARD_STANDALONE
 namespace boost::detail::scope_guard {
+#else
+namespace util::detail::scope_guard {
+#endif
 ///////////////////////////////////////////////////////////////////////////////
 
 template <typename Fn, typename... Args>
@@ -41,9 +45,15 @@ public:
     ~action() noexcept = default;
 
     auto operator()()
+#ifndef SCOPE_GUARD_STANDALONE
     BOOST_DETAIL_SCOPE_GUARD_FN_ALIAS(
         (void)detail::scope_guard::apply(
             std::forward<Fn>(fn_), std::move(args_)))
+#else
+	DETAIL_SCOPE_GUARD_FN_ALIAS(
+		(void)detail::scope_guard::apply(
+			std::forward<Fn>(fn_), std::move(args_)))
+#endif
 };
 
 ///////////////////////////////////////////////////////////////////////////////

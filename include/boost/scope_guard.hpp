@@ -26,7 +26,11 @@
 #include <type_traits>
 #include <exception>
 
+#ifndef SCOPE_GUARD_STANDALONE
 namespace boost {
+#else
+namespace util {
+#endif
 ///////////////////////////////////////////////////////////////////////////////
 
 template <typename... Params>
@@ -106,6 +110,7 @@ scope_guard_success(Params&&...)
 ///////////////////////////////////////////////////////////////////////////////
 } // boost
 
+#ifndef SCOPE_GUARD_STANDALONE
 #define BOOST_SCOPE_GUARD \
     ::boost::scope_guard BOOST_DETAIL_SCOPE_GUARD_UNIQUE_NAME =
 
@@ -114,6 +119,16 @@ scope_guard_success(Params&&...)
 
 #define BOOST_SCOPE_GUARD_SUCCESS \
     ::boost::scope_guard_success BOOST_DETAIL_SCOPE_GUARD_UNIQUE_NAME =
+#else
+#define SCOPE_GUARD \
+    ::util::scope_guard UTIL_DETAIL_SCOPE_GUARD_UNIQUE_NAME =
+
+#define SCOPE_GUARD_FAILURE \
+    ::util::scope_guard_failure UTIL_DETAIL_SCOPE_GUARD_UNIQUE_NAME =
+
+#define SCOPE_GUARD_SUCCESS \
+    ::util::scope_guard_success UTIL_DETAIL_SCOPE_GUARD_UNIQUE_NAME =
+#endif
 
 #endif
 
